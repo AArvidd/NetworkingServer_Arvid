@@ -29,7 +29,7 @@ public class Main{
                 System.out.println("Connect request is accepted...");
                 String clientHost = client.getInetAddress().getHostAddress();
                 int clientPort = client.getPort();
-                System.out.println("Client host = " + clientHost + "Client port = " + clientPort);
+                System.out.println("Client host = " + clientHost + " Client port = " + clientPort);
 
                 InputStream clientIn = client.getInputStream();
                 BufferedReader br = new BufferedReader(new InputStreamReader(clientIn));
