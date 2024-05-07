@@ -7,7 +7,7 @@ public class Main{
         ServerSocket server = null;
         Socket client;
 
-        int portNumber = 80;
+        int portNumber = 81;
         if(args.length >= 1){
             portNumber = Integer.parseInt(args[0]);
         }
@@ -15,7 +15,7 @@ public class Main{
         try{
             server = new ServerSocket(portNumber);
         } catch (IOException ie){
-            System.out.println("CAnnot open socket." + ie);
+            System.out.println("Cannot open socket." + ie);
             System.exit(1);
         }
         System.out.println("ServerSocket is created " + server);
@@ -36,10 +36,23 @@ public class Main{
                 String msgFromClient = br.readLine();
                 System.out.println("Message received from client = " + msgFromClient);
 
+                if(msgFromClient != null && !msgFromClient.equalsIgnoreCase("bye")){
+                    OutputStream clientOut = client.getOutputStream();
+                    PrintWriter pw = new PrintWriter(clientOut, true);
+                    String ansMsg = "Hello, " + msgFromClient;
+                    pw.println((ansMsg));
+                }
+
+                if(msgFromClient != null && msgFromClient.equalsIgnoreCase("bye")){
+                    server.close();
+                    client.close();
+                    break;
+                }
+
             } catch (Exception e){
-
+                System.out.println("an error occurred");
+                System.out.println(e.getMessage());
             }
-
         }
     }
 }
